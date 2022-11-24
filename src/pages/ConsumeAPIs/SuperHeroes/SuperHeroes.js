@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios'
+import Service, { getHeroes, heroesOptions, villiansOptions } from './Service';
 
 function SuperHeroes(props) {
-    const [heroes, setHeroes] = useState('')
+    const [heroes, setHeroes] = useState([])
     const [currentPage, setCurrentPage] = useState('')
     const [currentHero, setCurrentHero] = useState('')
     const [query, setQuery] = useState('')
@@ -23,18 +24,28 @@ function SuperHeroes(props) {
         .then((response) => {
             //setHeroes(response.data)
             //console.log(response.data.slice(prevIndex,index))
-            setHeroes(response.data.slice(prevIndex,index))    
+            setHeroes(response.data.slice(prevIndex,index)) 
         })
-        console.log(heroes)
     },[index])
+
+    function getHeroes (){ 
+        Axios.request(villiansOptions)
+        .then(response => {
+            console.log(response.data)
+            
+        })
+        .catch(err => {console.log (err)})
+
+        console.log(1)
+    }
 
     function nextPage (){
         if (index === 20 && prevIndex === 15){
-            setIndex(5)
             setPrevIndex(0)
+            setIndex(5)
         } else{
-            setIndex((index) => index + 5)
             setPrevIndex(prevIndex => prevIndex+5)
+            setIndex((index) => index + 5)
         }
             
             
@@ -42,11 +53,11 @@ function SuperHeroes(props) {
 
     function prevPage (){
         if (index === 5 && prevIndex === 0){
-            setIndex(20)
             setPrevIndex(15)
+            setIndex(20)
         } else{
-            setIndex((index) => index - 5)
             setPrevIndex(prevIndex => prevIndex-5)
+            setIndex((index) => index - 5)
         }
         
     }
@@ -65,6 +76,9 @@ function SuperHeroes(props) {
             <button onClick={() => (goToPage(1))}>1</button>
             <button onClick={() => (goToPage(2))}>2</button>
             <button onClick={() => (nextPage())}>NEXT</button>
+            <button onClick={() => (getHeroes())}>test</button>
+
+            
             <div>
                 {
                     heroes.map((hero, index) => {

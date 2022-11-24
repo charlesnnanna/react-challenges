@@ -1,14 +1,10 @@
+import React from 'react';
+import TicTacToe from './pages/TicTacToe/TicTacToe';
 
-import './App.css';
-import SuperHeroes from './pages/ConsumeAPIs/SuperHeroes/SuperHeroes';
-import UseContext from './pages/UseContext/UseContext';
-import UseEffect from './pages/UseEffect/UseEffect';
-import WhatIsAHook from './pages/WhatIsAHook/WhatIsAHook';
-
-function App() {
+function App(props) {
   return (
-    <div className="App">
-        <SuperHeroes/>
+    <div>
+      <TicTacToe/>
     </div>
   );
 }
