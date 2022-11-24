@@ -11,40 +11,57 @@ export default class Board extends React.Component {
               xIsNext: true
             },
             moves : [],
-            xIsNext : true,
+            
         
         }
 
     }
 
     handleClick (i){
+        //const squares = [...this.state.squareObject.squares]
         const squares = [...this.state.squareObject.squares]
-        const squareObject = {...this.state.squareObject}
-        if (calculateWinner(squares)){
+        if (calculateWinner(squares) || squares[i]){
           return
         }
         squares[i] = this.state.squareObject.xIsNext ? 'X' : 'O'
         this.setState({
             squareObject : {
-              squares : squares,
+              squares : [...squares],
               xIsNext : !this.state.squareObject.xIsNext,
             },
-            moves : [...this.state.moves, squareObject],
-            xIsNext : !this.state.xIsNext,
+            moves : [...this.state.moves, {
+              squares : [...squares],
+              xIsNext : !this.state.squareObject.xIsNext,
+            }],
           },
         () => {console.log(this.state)})   
     }
 
     handleHistory (i) {
-      const squares = this.state.moves[i]
       const moves = this.state.moves.slice(0, i+1)
+      const squares = moves[i].squares
+      console.log(squares)
+
 
       this.setState({
-        squareObject : squares,
+        squareObject : {
+          squares : [...squares],
+          xIsNext : this.state.moves[i].xIsNext
+        },
         moves : [...moves],
-        xIsNext : !this.state.xIsNext,
+        //xIsNext : !this.state.xIsNext,
       },
     () => {console.log(this.state)})  
+    }
+
+    startOver () {
+      this.setState({
+        squareObject : {
+          squares: Array(9).fill(null),
+          xIsNext: true
+        },
+        moves : [],
+      },  () => {console.log(this.state)})  
     }
 
 
@@ -82,11 +99,11 @@ export default class Board extends React.Component {
             {this.renderSquare(8)}
           </div>
 
-          <div>
-            <button className="border border-black p-2 mt-4 block">Go to game start</button>
+          <div> 
+            <button onClick={() => {this.startOver()}} className="border border-black p-2 mt-4 block">Go to game start</button>
             {
               this.state.moves && this.state.moves.map((move, index) => {
-                return <button key = {index} onClick = {() => {this.handleHistory(index)}} className="border border-black p-2 block">Go to move #{index+1}</button>
+                  return <button key = {index} onClick = {() => {this.handleHistory(index)}} className="border border-black p-2 block">Go to move #{index}</button>
               }) 
             }
           </div>
