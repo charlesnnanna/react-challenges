@@ -11,13 +11,11 @@ export default class Board extends React.Component {
               xIsNext: true
             },
             moves : [],
-            
-        
-        }
+        };
 
     }
 
-    handleClick (i){
+    handleClick = (i) => {
         //const squares = [...this.state.squareObject.squares]
         const squares = [...this.state.squareObject.squares]
         if (calculateWinner(squares) || squares[i]){
@@ -37,7 +35,7 @@ export default class Board extends React.Component {
         () => {console.log(this.state)})   
     }
 
-    handleHistory (i) {
+    handleHistory = (i) => {
       const moves = this.state.moves.slice(0, i+1)
       const squares = moves[i].squares
       console.log(squares)
@@ -66,7 +64,7 @@ export default class Board extends React.Component {
 
 
     renderSquare(i) {
-      return <Square value = {this.state.squareObject.squares[i]} onClick = {() => {this.handleClick(i)}} />;
+      return <Square value = {this.state.squareObject.squares[i]} onClick = {this.handleClick.bind(this, i)} />;
     }
 
   
@@ -103,7 +101,7 @@ export default class Board extends React.Component {
             <button onClick={() => {this.startOver()}} className="border border-black p-2 mt-4 block">Go to game start</button>
             {
               this.state.moves && this.state.moves.map((move, index) => {
-                  return <button key = {index} onClick = {() => {this.handleHistory(index)}} className="border border-black p-2 block">Go to move #{index}</button>
+                  return <button key = {index} onClick = {this.handleHistory.bind(this, index)} className="border border-black p-2 block">Go to move #{index}</button>
               }) 
             }
           </div>
