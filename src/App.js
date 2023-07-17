@@ -1,12 +1,24 @@
-import React from "react";
-import CountDown from "./pages/CountDown/CountDown";
-import Graph from "./pages/Graph/Graph";
-import TicTacToe from "./pages/TicTacToe/TicTacToe";
+import React, { Profiler } from 'react';
+import Profilers from './pages/Profiler/Profiler';
 
 function App(props) {
+  function onRender(
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime
+  ) {
+    console.log(actualDuration);
+    console.log(baseDuration);
+  }
+
   return (
     <div>
-      <Graph />
+      <Profiler id="Profilers" onRender={onRender}>
+        <Profilers />
+      </Profiler>
     </div>
   );
 }
