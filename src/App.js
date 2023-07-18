@@ -1,5 +1,5 @@
 import React, { Profiler } from 'react';
-import Profilers from './pages/Profiler/Profiler';
+import TextAnalyzer from './pages/TextAnalyzer/TextAnalyzer';
 
 function App(props) {
   function onRender(
@@ -16,8 +16,8 @@ function App(props) {
 
   return (
     <div>
-      <Profiler id="Profilers" onRender={onRender}>
-        <Profilers />
+      <Profiler id="TextAnalyzer" onRender={onRender}>
+        <TextAnalyzer />
       </Profiler>
     </div>
   );

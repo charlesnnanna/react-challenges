@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 const modalRootEl = document.getElementById('modal');
 
 function Modal(props) {
-  const el = document.createElement('div');
+  // const el = document.createElement('div');
 
   useEffect(() => {
     // modalRootEl.appendChild(el);
